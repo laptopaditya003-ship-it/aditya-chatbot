@@ -1,0 +1,437 @@
+<!DOCTYPE html><!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aditya AI</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ background:#070707;
+ color:white;
+ font-family:Arial,sans-serif;
+ height:100vh;
+ overflow:hidden
+}
+
+.app{
+ height:100vh;
+ display:flex;
+ flex-direction:column;
+ position:relative
+}
+
+.spark{
+ position:absolute;
+ top:45%;
+ left:50%;
+ transform:translate(-50%,-50%);
+ font-size:150px;
+ opacity:.08;
+ pointer-events:none
+}
+
+header{
+ height:70px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ position:relative;
+ z-index:2
+}
+
+h1{
+ margin:0;
+ color:#ffd900;
+ font-size:24px;
+ white-space:nowrap;
+ overflow:hidden;
+ width:0;
+ animation:title 2s steps(19) forwards
+}
+
+@keyframes title{
+ to{width:250px}
+}
+
+.chat{
+ flex:1;
+ overflow-y:auto;
+ padding:15px;
+ position:relative;
+ z-index:1
+}
+
+.msg{
+ max-width:82%;
+ padding:12px 15px;
+ margin:10px 0;
+ border-radius:18px;
+ line-height:1.45;
+ word-wrap:break-word
+}
+
+.user{
+ background:#333;
+ margin-left:auto
+}
+
+.bot{
+ background:#181818;
+ border:1px solid #444
+}
+
+.warning{
+ background:#2b2100;
+ border:2px solid #ffd900;
+ color:#ffd900;
+ text-align:center;
+ font-weight:bold
+}
+
+.thinking{
+ color:#aaa;
+ padding:10px;
+font:ariel;}
+
+.bottom{
+ padding:10px;
+ background:#101010;
+ display:flex;
+ gap:7px;
+ z-index:5
+}
+
+button{
+ width:45px;
+ height:45px;
+ border:0;
+ border-radius:50%;
+ background:#292929;
+ color:white;
+ font-size:20px;
+ cursor:pointer
+}
+
+button:active{
+ transform:scale(.92)
+}
+
+input{
+ flex:1;
+ min-width:0;
+ border:0;
+ outline:0;
+ border-radius:25px;
+ padding:0 16px;
+ font-size:16px
+}
+
+.search{
+ background:#ffd900;
+ color:#000
+}
+
+#photo{
+ display:none
+}
+
+.preview{
+ position:fixed;
+ bottom:75px;
+ left:10px;
+ max-width:120px;
+ max-height:120px;
+ border-radius:12px;
+ display:none;
+ z-index:10
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+ <div class="spark">✨</div>
+
+ <header>
+   <h1>Powered by Aditya Sir</h1>
+ </header>
+
+ <div id="chat" class="chat"></div>
+
+ <div class="bottom">
+
+   <button onclick="mic()" title="Microphone">🎙️</button>
+
+   <button onclick="document.getElementById('photo').click()" title="Photo">
+     📷
+   </button>
+
+   <input
+     id="input"
+     placeholder="Ask anything..."
+     autocomplete="off"
+   >
+
+   <button class="search" onclick="send()" title="Search">
+     🔍
+   </button>
+
+   <input id="photo" type="file" accept="image/*">
+
+ </div>
+
+ <img id="preview" class="preview">
+
+</div>
+
+<script>
+
+const input=document.getElementById("input");
+const chat=document.getElementById("chat");
+const photo=document.getElementById("photo");
+const preview=document.getElementById("preview");
+
+function add(text,type="bot",warning=false){
+
+ const d=document.createElement("div");
+
+ d.className="msg "+type+(warning?" warning":"");
+
+ d.textContent=text;
+
+ chat.appendChild(d);
+
+ chat.scrollTop=chat.scrollHeight;
+}
+
+function thinking(){
+
+ const d=document.createElement("div");
+
+ d.id="thinking";
+ d.className="thinking";
+ d.textContent="🤖 Thinking...";
+
+ chat.appendChild(d);
+
+ chat.scrollTop=chat.scrollHeight;
+}
+
+function removeThinking(){
+
+ const d=document.getElementById("thinking");
+
+ if(d)d.remove();
+}
+
+async function send(){
+
+ const q=input.value.trim();
+
+ if(!q)return;
+
+ add(q,"user");
+
+ input.value="";
+
+ const x=q.toLowerCase().trim();
+
+ /*
+   SPECIAL ADITYA MESSAGE
+ */
+ if(x.includes("aditya")){
+
+   add(
+   "⚠️ Welcome to the Unwanted AI chatbot And Please (don't) Visit Again!!",
+   "bot",
+   true
+   );
+
+   return;
+ }
+
+ /*
+   WHO ARE YOU?
+ */
+ if(
+   x==="who are you" ||
+   x==="who are you?" ||
+   x.includes("who are you")
+ ){
+
+   add("Tell who are you, Girl or Boy.");
+
+   return;
+ }
+
+ /*
+   BOY ANSWER
+ */
+ if(
+   x==="boy" ||
+   x==="i am a boy" ||
+   x.includes("answer is boy")
+ ){
+
+   add(
+   "So I have to give a meaningful sentence, OK then I am an AI assistant developed by Aditya Sir. I can answer questions, explain lessons, solve problems, help with coding, and help you with many other tasks."
+   );
+
+   return;
+ }
+
+ /*
+   WHO BUILT YOU?
+ */
+ if(
+   x.includes("who built you") ||
+   x.includes("who made you") ||
+   x.includes("who created you")||
+   x.includes("who developed you")
+ ){
+
+   add(
+   "I was built by a great personality, Aditya Singh in the year 2026."
+   );
+
+   return;
+ }
+
+ /*
+   DEVELOPMENT QUESTIONS
+ */
+ if(
+   x.includes("develop this chatbot") ||
+   x.includes("developed this chatbot") ||
+   x.includes("development of this chatbot") ||
+   x.includes("make this chatbot") ||
+   x.includes("making this chatbot") ||
+   x.includes("build this chatbot") ||
+   x.includes("building this chatbot") ||
+   x.includes("create this chatbot") ||
+   x.includes("creating this chatbot")
+ ){
+
+   add(
+   "I was developed by a great Personality Aditya Sir."
+   );
+
+   return;
+ }
+
+ /*
+   NORMAL AI QUESTION
+ */
+ thinking();
+
+ try{
+
+   const response=await fetch("/api/chat",{
+     method:"POST",
+     headers:{
+       "Content-Type":"application/json"
+     },
+     body:JSON.stringify({
+       question:q
+     })
+   });
+
+   const data=await response.json();
+
+   removeThinking();
+
+   if(data.answer){
+
+     add(data.answer);
+
+   }else{
+
+     add("❌ Sorry, I could not answer that.");
+
+   }
+
+ }catch(error){
+
+   removeThinking();
+
+   add("❌ Connection error. Please make sure the server is running.");
+
+ }
+
+}
+
+input.addEventListener("keydown",e=>{
+
+ if(e.key==="Enter")send();
+
+});
+
+/*
+ MICROPHONE
+*/
+function mic(){
+
+ const SpeechRecognition=
+   window.SpeechRecognition ||
+   window.webkitSpeechRecognition;
+
+ if(!SpeechRecognition){
+
+   add("🎙️ Your browser does not support voice input.");
+
+   return;
+ }
+
+ const recognition=new SpeechRecognition();
+
+ recognition.lang="en-IN";
+
+ recognition.start();
+
+ recognition.onstart=()=>{
+
+   input.placeholder="🎙️ Listening...";
+
+ };
+
+ recognition.onresult=e=>{
+
+   input.value=e.results[0][0].transcript;
+
+   input.placeholder="Ask anything...";
+
+ };
+
+ recognition.onerror=()=>{
+
+   input.placeholder="Ask anything...";
+
+ };
+
+}
+
+/*
+ PHOTO PREVIEW
+*/
+photo.onchange=()=>{
+
+ const file=photo.files[0];
+
+ if(!file)return;
+
+ preview.src=URL.createObjectURL(file);
+
+ preview.style.display="block";
+
+};
+
+</script>
+
+</body>
+</html>

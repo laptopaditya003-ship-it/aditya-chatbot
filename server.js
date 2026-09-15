@@ -10,14 +10,8 @@ app.use(express.json());
 // Serve static frontend files (index.html)
 app.use(express.static('./'));
 
-// Initialize Gemini client with API key
+// Initialize Gemini client with API key from Render Environment
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
-
-if (!process.env.GEMINI_API_KEY) {
-  console.error("❌ API Key missing in environment variables!");
-} else {
-  console.log("✅ API Key successfully loaded");
-}
 
 // Chat API endpoint
 app.post('/chat', async (req, res) => {
@@ -25,7 +19,11 @@ app.post('/chat', async (req, res) => {
     const userMessage = req.body.message;
 
     if (!userMessage) {
-      return res.status(400).json({ error: "No message provided" });
+      return res.status(400).json({ reply: "❌ Please type a valid message." });
+    }
+
+    if (!process.env.GEMINI_API_KEY) {
+      return res.json({ reply: "❌ API Key is missing in Render Environment Variables!" });
     }
 
     const response = await ai.models.generateContent({
@@ -33,17 +31,17 @@ app.post('/chat', async (req, res) => {
       contents: userMessage,
     });
 
-    // Safely retrieve generated response text
-    const replyText = response.text || (response.candidates && response.candidates[0]?.content?.parts[0]?.text);
+    const replyText = response.text;
 
     if (replyText) {
       res.json({ reply: replyText });
     } else {
-      res.json({ reply: "I received your message, but could not format a text response." });
+      res.json({ reply: "❌ Gemini API connected, but returned no text." });
     }
+
   } catch (error) {
-    console.error("API Error:", error);
-    res.status(500).json({ error: "Something went wrong with the AI server." });
+    console.error("API Error Details:", error);
+    res.json({ reply: `❌ Error from Gemini: ${error.message || "Unknown error"}` });
   }
 });
 

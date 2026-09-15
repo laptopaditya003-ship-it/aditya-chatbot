@@ -1,100 +1,43 @@
-const http = require("http");
-const fs = require("fs");
-const path = require("path");
-const { GoogleGenAI } = require("@google/genai");
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors');
+const { GoogleGenAI } = require('@google/genai');
 
-const PORT = 3000;
-const API_KEY = process.env.GEMINI_API_KEY;
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-const ai = API_KEY
-  ? new GoogleGenAI({ apiKey: API_KEY })
-  : null;
+// Serve index.html and static files
+app.use(express.static('./'));
 
-const server = http.createServer(async (req, res) => {
+// Initialize Gemini SDK with key from environment variables
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-  if (req.method === "GET" && req.url === "/") {
+if (!process.env.GEMINI_API_KEY) {
+  console.error("❌ API Key missing in environment variables!");
+} else {
+  console.log("✅ API Key successfully loaded");
+}
 
-    const file = fs.readFileSync(
-      path.join(__dirname, "index.html")
-    );
+// Chat endpoint
+app.post('/chat', async (req, res) => {
+  try {
+    const userMessage = req.body.message;
 
-    res.writeHead(200, {
-      "Content-Type": "text/html"
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: userMessage,
     });
 
-    res.end(file);
-    return;
+    res.json({ reply: response.text });
+  } catch (error) {
+    console.error("API Error:", error);
+    res.status(500).json({ error: "Something went wrong with the AI server." });
   }
-
-  if (req.method === "POST" && req.url === "/api/chat") {
-
-    let body = "";
-
-    req.on("data", chunk => {
-      body += chunk;
-    });
-
-    req.on("end", async () => {
-
-      try {
-
-        const data = JSON.parse(body);
-        const question = data.question;
-
-        if (!ai) {
-          res.writeHead(500, {
-            "Content-Type": "application/json"
-          });
-
-          res.end(JSON.stringify({
-            answer: "❌ Gemi API key is not connected."
-          }));
-
-          return;
-        }
-
-        const response = await ai.models.generateContent({
-          model: "gemini-3.8-flash",
-          contents: question,
-          config: {
-            systemInstruction:
-              "You are Aditya AI, a helpful AI assistant. Answer questions clearly, accurately and helpfully."
-          }
-        });
-
-        res.writeHead(200, {
-          "Content-Type": "application/json"
-        });
-
-        res.end(JSON.stringify({
-          answer: response.text
-        }));
-
-      } catch (error) {
-
-        console.log("Gemini error:", error);
-
-        res.writeHead(500, {
-          "Content-Type": "application/json"
-        });
-
-        res.end(JSON.stringify({
-          answer: "❌ Gemini could not answer. Check your API key and free-tier availability."
-        }));
-      }
-
-    });
-
-    return;
-  }
-
-  res.writeHead(404);
-  res.end("Not found");
 });
 
-server.listen(PORT, () => {
-  console.log("");
-  console.log("🤖 Aditya AI is running!");
-  console.log("🌐 Open: http://localhost:" + PORT);
-  console.log("");
+// Dynamic port for Render
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });

@@ -1,5 +1,5 @@
-<!DOCTYPE html><!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -9,145 +9,256 @@
 *{box-sizing:border-box}
 
 body{
- margin:0;
- background:#070707;
- color:white;
- font-family:Arial,sans-serif;
- height:100vh;
- overflow:hidden
+  margin:0;
+  background:#070707;
+  color:white;
+  font-family:Arial,sans-serif;
+  height:100vh;
+  overflow:hidden
 }
 
 .app{
- height:100vh;
- display:flex;
- flex-direction:column;
- position:relative
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  position:relative
 }
 
 .spark{
- position:absolute;
- top:45%;
- left:50%;
- transform:translate(-50%,-50%);
- font-size:150px;
- opacity:.08;
- pointer-events:none
+  position:absolute;
+  top:45%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:150px;
+  opacity:.08;
+  pointer-events:none
 }
 
 header{
- height:70px;
- display:flex;
- align-items:center;
- justify-content:center;
- position:relative;
- z-index:2
+  height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  z-index:2
+}
+
+/* Three dots menu button */
+.menu-btn {
+  position: absolute;
+  left: 15px;
+  background: transparent;
+  border: none;
+  color: #ffd900;
+  font-size: 28px;
+  cursor: pointer;
+  width: auto;
+  height: auto;
+  z-index: 10;
+}
+
+/* Warning box pointing to the 3 dots */
+.warning-box {
+  position: absolute;
+  top: 65px;
+  left: 15px;
+  background: #2b0000;
+  border: 2px solid #ff3333;
+  color: #ff3333;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: bold;
+  z-index: 20;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  animation: pulse 1.5s infinite alternate;
+}
+
+.warning-box::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  border-width: 0 8px 10px 8px;
+  border-style: solid;
+  border-color: transparent transparent #ff3333 transparent;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.03); }
 }
 
 h1{
- margin:0;
- color:#ffd900;
- font-size:24px;
- white-space:nowrap;
- overflow:hidden;
- width:0;
- animation:title 2s steps(19) forwards
+  margin:0;
+  color:#ffd900;
+  font-size:24px;
+  white-space:nowrap;
+  overflow:hidden;
+  width:0;
+  animation:title 2s steps(19) forwards
 }
 
 @keyframes title{
- to{width:250px}
+  to{width:250px}
 }
 
 .chat{
- flex:1;
- overflow-y:auto;
- padding:15px;
- position:relative;
- z-index:1
+  flex:1;
+  overflow-y:auto;
+  padding:15px;
+  position:relative;
+  z-index:1
 }
 
 .msg{
- max-width:82%;
- padding:12px 15px;
- margin:10px 0;
- border-radius:18px;
- line-height:1.45;
- word-wrap:break-word
+  max-width:82%;
+  padding:12px 15px;
+  margin:10px 0;
+  border-radius:18px;
+  line-height:1.45;
+  word-wrap:break-word
 }
 
 .user{
- background:#333;
- margin-left:auto
+  background:#333;
+  margin-left:auto
 }
 
 .bot{
- background:#181818;
- border:1px solid #444
+  background:#181818;
+  border:1px solid #444
 }
 
 .warning{
- background:#2b2100;
- border:2px solid #ffd900;
- color:#ffd900;
- text-align:center;
- font-weight:bold
+  background:#2b2100;
+  border:2px solid #ffd900;
+  color:#ffd900;
+  text-align:center;
+  font-weight:bold
 }
 
 .thinking{
- color:#aaa;
- padding:10px;
-font:ariel;}
+  color:#aaa;
+  padding:10px;
+  font-family:Arial, sans-serif;
+}
 
 .bottom{
- padding:10px;
- background:#101010;
- display:flex;
- gap:7px;
- z-index:5
+  padding:10px;
+  background:#101010;
+  display:flex;
+  gap:7px;
+  z-index:5
 }
 
 button{
- width:45px;
- height:45px;
- border:0;
- border-radius:50%;
- background:#292929;
- color:white;
- font-size:20px;
- cursor:pointer
+  width:45px;
+  height:45px;
+  border:0;
+  border-radius:50%;
+  background:#292929;
+  color:white;
+  font-size:20px;
+  cursor:pointer
 }
 
 button:active{
- transform:scale(.92)
+  transform:scale(.92)
 }
 
 input{
- flex:1;
- min-width:0;
- border:0;
- outline:0;
- border-radius:25px;
- padding:0 16px;
- font-size:16px
+  flex:1;
+  min-width:0;
+  border:0;
+  outline:0;
+  border-radius:25px;
+  padding:0 16px;
+  font-size:16px
 }
 
 .search{
- background:#ffd900;
- color:#000
+  background:#ffd900;
+  color:#000
 }
 
 #photo{
- display:none
+  display:none
 }
 
 .preview{
- position:fixed;
- bottom:75px;
- left:10px;
- max-width:120px;
- max-height:120px;
- border-radius:12px;
- display:none;
- z-index:10
+  position:fixed;
+  bottom:75px;
+  left:10px;
+  max-width:120px;
+  max-height:120px;
+  border-radius:12px;
+  display:none;
+  z-index:10
+}
+
+/* Hacking Screen Overlay */
+.hack-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 99;
+  justify-content: center;
+  align-items: center;
+}
+
+.hack-card {
+  width: 85%;
+  max-width: 420px;
+  background: #000;
+  border: 2px solid #00ff00;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 20px #00ff00;
+  font-family: 'Courier New', Courier, monospace;
+  color: #00ff00;
+}
+
+.hack-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.hack-log {
+  height: 120px;
+  font-size: 13px;
+  overflow-y: hidden;
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.progress-bar-container {
+  width: 100%;
+  background: #111;
+  border: 1px solid #00ff00;
+  height: 22px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: #00ff00;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 14px;
 }
 </style>
 </head>
@@ -156,281 +267,228 @@ input{
 
 <div class="app">
 
- <div class="spark">✨</div>
+  <div class="spark">✨</div>
 
- <header>
-   <h1>Powered by Aditya Sir</h1>
- </header>
+  <header>
+    <button class="menu-btn" onclick="startHackMode()" title="Options">⋮</button>
+    
+    <!-- Warning pointer box -->
+    <div class="warning-box">
+      ▲ DONT CLICK HERE IF YOU WANT YOUR LOVE YOU DEVICE
+    </div>
 
- <div id="chat" class="chat"></div>
+    <h1>Powered by Aditya Sir</h1>
+  </header>
 
- <div class="bottom">
+  <div id="chat" class="chat"></div>
 
-   <button onclick="mic()" title="Microphone">🎙️</button>
+  <div class="bottom">
+    <button onclick="mic()" title="Microphone">🎙️</button>
 
-   <button onclick="document.getElementById('photo').click()" title="Photo">
-     📷
-   </button>
+    <button onclick="document.getElementById('photo').click()" title="Photo">
+      📷
+    </button>
 
-   <input
-     id="input"
-     placeholder="Ask anything..."
-     autocomplete="off"
-   >
+    <input
+      id="input"
+      placeholder="Ask anything..."
+      autocomplete="off"
+    >
 
-   <button class="search" onclick="send()" title="Search">
-     🔍
-   </button>
+    <button class="search" onclick="send()" title="Search">
+      🔍
+    </button>
 
-   <input id="photo" type="file" accept="image/*">
+    <input id="photo" type="file" accept="image/*">
+  </div>
 
- </div>
-
- <img id="preview" class="preview">
+  <img id="preview" class="preview">
 
 </div>
 
+<!-- Fake Hacking Screen Overlay -->
+<div id="hackOverlay" class="hack-overlay">
+  <div class="hack-card">
+    <div class="hack-title">SYSTEM OVERRIDE IN PROGRESS</div>
+    <div id="hackLog" class="hack-log"></div>
+    <div class="progress-bar-container">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
+    <div id="progressText" class="progress-text">INITIALIZING... 0%</div>
+  </div>
+</div>
+
 <script>
+const input = document.getElementById("input");
+const chat = document.getElementById("chat");
+const photo = document.getElementById("photo");
+const preview = document.getElementById("preview");
 
-const input=document.getElementById("input");
-const chat=document.getElementById("chat");
-const photo=document.getElementById("photo");
-const preview=document.getElementById("preview");
-
-function add(text,type="bot",warning=false){
-
- const d=document.createElement("div");
-
- d.className="msg "+type+(warning?" warning":"");
-
- d.textContent=text;
-
- chat.appendChild(d);
-
- chat.scrollTop=chat.scrollHeight;
+function add(text, type="bot", warning=false){
+  const d = document.createElement("div");
+  d.className = "msg " + type + (warning ? " warning" : "");
+  d.textContent = text;
+  chat.appendChild(d);
+  chat.scrollTop = chat.scrollHeight;
 }
 
 function thinking(){
-
- const d=document.createElement("div");
-
- d.id="thinking";
- d.className="thinking";
- d.textContent="🤖 Thinking...";
-
- chat.appendChild(d);
-
- chat.scrollTop=chat.scrollHeight;
+  const d = document.createElement("div");
+  d.id = "thinking";
+  d.className = "thinking";
+  d.textContent = "🤖 Thinking...";
+  chat.appendChild(d);
+  chat.scrollTop = chat.scrollHeight;
 }
 
 function removeThinking(){
-
- const d=document.getElementById("thinking");
-
- if(d)d.remove();
+  const d = document.getElementById("thinking");
+  if(d) d.remove();
 }
 
 async function send(){
+  const q = input.value.trim();
+  if(!q) return;
 
- const q=input.value.trim();
+  add(q, "user");
+  input.value = "";
 
- if(!q)return;
+  const x = q.toLowerCase().trim();
 
- add(q,"user");
+  /* SPECIAL ADITYA MESSAGE */
+  if(x.includes("aditya")){
+    add("⚠️ Welcome to the Unwanted AI chatbot And Please (don't) Visit Again!!", "bot", true);
+    return;
+  }
 
- input.value="";
+  /* WHO ARE YOU? */
+  if(x === "who are you" || x === "who are you?" || x.includes("who are you")){
+    add("Tell who are you, Girl or Boy.");
+    return;
+  }
 
- const x=q.toLowerCase().trim();
+  /* BOY ANSWER */
+  if(x === "boy" || x === "i am a boy" || x.includes("answer is boy")){
+    add("So I have to give a meaningful sentence, OK then I am an AI assistant developed by Aditya Sir. I can answer questions, explain lessons, solve problems, help with coding, and help you with many other tasks.");
+    return;
+  }
 
- /*
-   SPECIAL ADITYA MESSAGE
- */
- if(x.includes("aditya")){
+  /* WHO BUILT YOU? */
+  if(x.includes("who built you") || x.includes("who made you") || x.includes("who created you") || x.includes("who developed you")){
+    add("I was built by a great personality, Aditya Singh in the year 2026.");
+    return;
+  }
 
-   add(
-   "⚠️ Welcome to the Unwanted AI chatbot And Please (don't) Visit Again!!",
-   "bot",
-   true
-   );
+  /* DEVELOPMENT QUESTIONS */
+  if(
+    x.includes("develop this chatbot") ||
+    x.includes("developed this chatbot") ||
+    x.includes("development of this chatbot") ||
+    x.includes("make this chatbot") ||
+    x.includes("making this chatbot") ||
+    x.includes("build this chatbot") ||
+    x.includes("building this chatbot") ||
+    x.includes("create this chatbot") ||
+    x.includes("creating this chatbot")
+  ){
+    add("I was developed by a great Personality Aditya Sir.");
+    return;
+  }
 
-   return;
- }
+  /* NORMAL AI QUESTION */
+  thinking();
 
- /*
-   WHO ARE YOU?
- */
- if(
-   x==="who are you" ||
-   x==="who are you?" ||
-   x.includes("who are you")
- ){
+  try {
+    const response = await fetch("/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: q })
+    });
 
-   add("Tell who are you, Girl or Boy.");
+    const data = await response.json();
+    removeThinking();
 
-   return;
- }
-
- /*
-   BOY ANSWER
- */
- if(
-   x==="boy" ||
-   x==="i am a boy" ||
-   x.includes("answer is boy")
- ){
-
-   add(
-   "So I have to give a meaningful sentence, OK then I am an AI assistant developed by Aditya Sir. I can answer questions, explain lessons, solve problems, help with coding, and help you with many other tasks."
-   );
-
-   return;
- }
-
- /*
-   WHO BUILT YOU?
- */
- if(
-   x.includes("who built you") ||
-   x.includes("who made you") ||
-   x.includes("who created you")||
-   x.includes("who developed you")
- ){
-
-   add(
-   "I was built by a great personality, Aditya Singh in the year 2026."
-   );
-
-   return;
- }
-
- /*
-   DEVELOPMENT QUESTIONS
- */
- if(
-   x.includes("develop this chatbot") ||
-   x.includes("developed this chatbot") ||
-   x.includes("development of this chatbot") ||
-   x.includes("make this chatbot") ||
-   x.includes("making this chatbot") ||
-   x.includes("build this chatbot") ||
-   x.includes("building this chatbot") ||
-   x.includes("create this chatbot") ||
-   x.includes("creating this chatbot")
- ){
-
-   add(
-   "I was developed by a great Personality Aditya Sir."
-   );
-
-   return;
- }
-
- /*
-   NORMAL AI QUESTION
- */
- thinking();
-
- try{
-
-   const response=await fetch("/api/chat",{
-     method:"POST",
-     headers:{
-       "Content-Type":"application/json"
-     },
-     body:JSON.stringify({
-       question:q
-     })
-   });
-
-   const data=await response.json();
-
-   removeThinking();
-
-   if(data.answer){
-
-     add(data.answer);
-
-   }else{
-
-     add("❌ Sorry, I could not answer that.");
-
-   }
-
- }catch(error){
-
-   removeThinking();
-
-   add("❌ Connection error. Please make sure the server is running.");
-
- }
-
+    if(data.reply){
+      add(data.reply);
+    } else {
+      add("❌ Sorry, I could not answer that.");
+    }
+  } catch(error){
+    removeThinking();
+    add("❌ Connection error. Please make sure the server is running.");
+  }
 }
 
-input.addEventListener("keydown",e=>{
-
- if(e.key==="Enter")send();
-
+input.addEventListener("keydown", e => {
+  if(e.key === "Enter") send();
 });
 
-/*
- MICROPHONE
-*/
+/* MICROPHONE */
 function mic(){
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
- const SpeechRecognition=
-   window.SpeechRecognition ||
-   window.webkitSpeechRecognition;
+  if(!SpeechRecognition){
+    add("🎙️ Your browser does not support voice input.");
+    return;
+  }
 
- if(!SpeechRecognition){
+  const recognition = new SpeechRecognition();
+  recognition.lang = "en-IN";
+  recognition.start();
 
-   add("🎙️ Your browser does not support voice input.");
-
-   return;
- }
-
- const recognition=new SpeechRecognition();
-
- recognition.lang="en-IN";
-
- recognition.start();
-
- recognition.onstart=()=>{
-
-   input.placeholder="🎙️ Listening...";
-
- };
-
- recognition.onresult=e=>{
-
-   input.value=e.results[0][0].transcript;
-
-   input.placeholder="Ask anything...";
-
- };
-
- recognition.onerror=()=>{
-
-   input.placeholder="Ask anything...";
-
- };
-
+  recognition.onstart = () => { input.placeholder = "🎙️ Listening..."; };
+  recognition.onresult = e => {
+    input.value = e.results[0][0].transcript;
+    input.placeholder = "Ask anything...";
+  };
+  recognition.onerror = () => { input.placeholder = "Ask anything..."; };
 }
 
-/*
- PHOTO PREVIEW
-*/
-photo.onchange=()=>{
-
- const file=photo.files[0];
-
- if(!file)return;
-
- preview.src=URL.createObjectURL(file);
-
- preview.style.display="block";
-
+/* PHOTO PREVIEW */
+photo.onchange = () => {
+  const file = photo.files[0];
+  if(!file) return;
+  preview.src = URL.createObjectURL(file);
+  preview.style.display = "block";
 };
 
+/* FAKE HACKING PROCESS */
+function startHackMode(){
+  const overlay = document.getElementById("hackOverlay");
+  const log = document.getElementById("hackLog");
+  const bar = document.getElementById("progressBar");
+  const text = document.getElementById("progressText");
+
+  overlay.style.display = "flex";
+  log.innerHTML = "";
+  bar.style.width = "0%";
+  text.textContent = "INITIALIZING... 0%";
+
+  const steps = [
+    { p: 10, msg: "> Accessing local device storage..." },
+    { p: 20, msg: "> Intercepting system memory..." },
+    { p: 30, msg: "> Bypassing internal security layers..." },
+    { p: 40, msg: "> OVERRIDE HALTED AT 40%" }
+  ];
+
+  let stepIndex = 0;
+
+  const interval = setInterval(() => {
+    if(stepIndex < steps.length){
+      const current = steps[stepIndex];
+      bar.style.width = current.p + "%";
+      text.textContent = "HACKING... " + current.p + "%";
+      log.innerHTML += current.msg + "<br>";
+      stepIndex++;
+    } else {
+      clearInterval(interval);
+      setTimeout(() => {
+        overlay.style.display = "none";
+        add("YOU CAN LEAVE, MY WORK IS DONE-By ADITYA", "bot", true);
+      }, 1000);
+    }
+  }, 1000);
+}
 </script>
 
 </body>
